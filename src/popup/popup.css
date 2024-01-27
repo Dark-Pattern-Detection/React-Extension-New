@@ -1,12 +1,14 @@
 body {
   color:rgb(248, 250, 229);
-  background-color: rgb(67, 118, 108);
+  background-color: #112031;
   
 }
 #heading {
   text-align: center; /* Center the text horizontally */
   margin-top: 20px; /* Adjust the top margin as needed */
   font-size: 18px;
+  
+  color: rgb(226, 223, 243);
 }
 
 footer {
@@ -23,19 +25,19 @@ footer {
 .button {
   width: 45%; /* Set the width to 45% to leave some space between buttons */
   padding: 8px; /* Adjust the padding as needed */
-  background-color: rgb(118, 69, 59); /* Set your preferred background color */
-  color: #ffffff; /* Set the text color */
+  background-color: #526D82; /* Set your preferred background color */
+  color: #DDE6ED; /* Set the text color */
   border: none;
   border-radius: 5px; /* Add rounded corners if desired */
   cursor: pointer;
 }
 
 #report {
-  background-color: rgb(177, 148, 112); /* Customize the background color for the report button */
+  background-color: #526D82; /* Customize the background color for the report button */
 }
 
 #more {
-  background-color: rgb(177, 148, 112); /* Customize the background color for the more button */
+  background-color: #526D82; /* Customize the background color for the more button */
 }
 
 #start {

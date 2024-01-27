@@ -29,12 +29,12 @@ const AccordionComponent = () => {
       <div className="accordion-section">
         <div className="accordion-title">Highlight Patterns</div>
         <div className="accordion-content">
-          <p>
+          <center>
             Scarcity: 2
-          </p>
+          </center>
           <footer>
-            <button class="button" id="prev">prev</button>
-            <button class="button" id="next">next</button>
+            <button class="button" id="prev">Previous</button>
+            <button class="button" id="next">Next</button>
           </footer>
         </div>
       </div>
