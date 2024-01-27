@@ -7,7 +7,7 @@ const webpack = require('webpack')
 module.exports = {
   mode: 'development',
   entry: {
-    popup: path.resolve('src/popup/popup.tsx'),
+    popup: path.resolve('src/popup/popup.jsx'),
     content: path.resolve('src/content.js'),
     background: path.resolve('src/background.js'),
   },
@@ -17,6 +17,17 @@ module.exports = {
         test: /\.tsx$/,
         exclude: /node_modules/,
         use: 'ts-loader',
+      },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
@@ -37,7 +48,7 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.jsx', '.js', '.js'],
   },
   output: {
     filename: '[name].js',

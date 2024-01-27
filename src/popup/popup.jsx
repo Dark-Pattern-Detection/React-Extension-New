@@ -1,19 +1,13 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import axios from 'axios'
+import './popup.css'
+import TempComponent from './components/TempComponent'
 
 const Test = () => {
-  axios
-    .post('http://localhost:3000', { data: 'hello' })
-    .then((res) => {
-      console.log('success', res)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
   return (
     <div style={{ width: '300px', borderRadius: '20px' }}>
       <h1>Hello World</h1>
+      <TempComponent />
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero fuga
         minima unde sit accusantium consequuntur? Excepturi itaque blanditiis
@@ -32,10 +26,6 @@ const Test = () => {
 }
 
 const container = document.createElement('div')
-document.body.style.borderRadius = '20px'
-document.body.style.border = '2px red solid'
-document.body.style.margin = '0px'
-document.body.style.padding = '0px'
 
 document.body.appendChild(container)
 const root = createRoot(container)

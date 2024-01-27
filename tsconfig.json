@@ -6,6 +6,12 @@
     "moduleResolution": "node",
     "esModuleInterop": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/content.js", "src/background.js"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/content.js",
+    "src/background.js",
+    "src/popup/popup.jsx"
+  ],
   "exclude": ["node_modules"]
 }
