@@ -11,6 +11,8 @@ Extension setup:
 2. `src/popup/popup.css` is the css file which is imported in `popup.jsx`.
 
 
+
+
 `Optional: to start the server you will need to setup temp-node-server and python-server. But without starting server also you can run the extension and change the frontend of the popup.`
 
    Node Server Link: (Read readme of temp-node-server to setup node server)
