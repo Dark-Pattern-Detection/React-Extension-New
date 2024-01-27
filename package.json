@@ -1,0 +1,37 @@
+{
+  "name": "1_react-basic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack",
+    "watch": "webpack --watch --progress --config webpack.config.js",
+    "path": "node --experimental-import-meta-resolve path.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.23.9",
+    "@types/react": "^18.2.48",
+    "axios": "^1.6.7",
+    "babel": "^6.23.0",
+    "babel-loader": "^9.1.3",
+    "chrome": "^0.1.0",
+    "copy-webpack-plugin": "^12.0.2",
+    "fs": "^0.0.1-security",
+    "html-webpack-plugin": "^5.6.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "babelify": "^10.0.0",
+    "browserify": "^17.0.0",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
