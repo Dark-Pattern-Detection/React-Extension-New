@@ -1,0 +1,42 @@
+/* AccordionComponent.css */
+
+.accordion-section {
+    border: 1px solid rgb(248, 250, 229);
+    margin-bottom: 10px;
+    overflow: hidden;
+    border-radius: 5px;
+    background-color: rgb(177, 148, 112);
+  }
+  
+  .accordion-title {
+    background-color: rgb(118, 69, 59);
+    color: rgb(248, 250, 229);
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .accordion-content {
+    display: none;
+    padding: 10px;
+  }
+  
+  /* Toggle icon */
+  .accordion-title::before {
+    content: '\25B6'; /* Unicode character for right-pointing triangle */
+    font-size: 16px;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+    display: inline-block;
+  }
+  
+  .active .accordion-title::before {
+    transform: rotate(90deg);
+  }
+  
+  #prev {
+    background-color: rgb(118, 69, 59); /* Customize the background color for the report button */
+  }
+  
+  #next {
+    background-color:rgb(118, 69, 59); /* Customize the background color for the more button */
+  }
