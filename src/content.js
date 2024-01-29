@@ -58,8 +58,14 @@ async function initPatternHighlighter() {
       divElm.style.position = 'relative'
       divElm.style.zIndex = '9999'
     })
+    brw.runtime.sendMessage(
+      { message: 'darkPatternsFound', darkPatterns: darkPatterns },
+      function () {
+        console.log('message send to background script')
+      }
+    )
   }
-  console.log(activateObserver)
+  // console.log(activateObserver)
   if (!activateObserver) {
     activateObserver = true
     const observer = new MutationObserver((mutationsList) => {
@@ -84,9 +90,9 @@ async function initPatternHighlighter() {
       }
     })
 
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    })
+    // observer.observe(document.body, {
+    //   childList: true,
+    //   subtree: true,
+    // })
   }
 }

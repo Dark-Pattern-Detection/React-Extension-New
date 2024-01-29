@@ -1,45 +1,70 @@
 // AccordionComponent.js
-import React, { useEffect } from 'react';
-import './dropdown.css';
+import React, { useEffect, useState } from 'react'
+import './dropdown.css'
 
-const AccordionComponent = () => {
+const AccordionComponent = (props) => {
+  const [currIndex, setCurrIndex] = useState(0)
+  const { darkPatterns } = props
   useEffect(() => {
     // JavaScript for accordion functionality
-    const accordionTitles = document.querySelectorAll('.accordion-title');
+    const accordionTitles = document.querySelectorAll('.accordion-title')
 
-    accordionTitles.forEach(title => {
+    accordionTitles.forEach((title) => {
       title.addEventListener('click', function () {
-        const content = this.nextElementSibling;
+        const content = this.nextElementSibling
 
         // Toggle active class on click
-        this.parentNode.classList.toggle('active');
+        this.parentNode.classList.toggle('active')
 
         // Toggle content visibility
         if (content.style.display === 'block') {
-          content.style.display = 'none';
+          content.style.display = 'none'
         } else {
-          content.style.display = 'block';
+          content.style.display = 'block'
         }
-      });
-    });
-  }, []);
+      })
+    })
+  }, [])
 
   return (
-    <div className="accordion">
-      <div className="accordion-section">
-        <div className="accordion-title">Highlight Patterns</div>
-        <div className="accordion-content">
-          <p>
-            Scarcity: 2
-          </p>
+    <div className='accordion'>
+      <div className='accordion-section'>
+        <div className='accordion-title'>Highlight Patterns</div>
+        <div className='accordion-content'>
+          <p>{darkPatterns[currIndex].label}</p>
+          <p>{darkPatterns[currIndex].text}</p>
           <footer>
-            <button class="button" id="prev">prev</button>
-            <button class="button" id="next">next</button>
+            {currIndex === 0 ? null : (
+              <button
+                class='button'
+                id='prev'
+                onClick={() =>
+                  setCurrIndex(currIndex === 0 ? currIndex : currIndex - 1)
+                }
+              >
+                prev
+              </button>
+            )}
+            {currIndex === darkPatterns.length - 1 ? null : (
+              <button
+                class='button'
+                id='next'
+                onClick={() =>
+                  setCurrIndex(
+                    currIndex === darkPatterns.length - 1
+                      ? currIndex
+                      : currIndex + 1
+                  )
+                }
+              >
+                next
+              </button>
+            )}
           </footer>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AccordionComponent;
+export default AccordionComponent
