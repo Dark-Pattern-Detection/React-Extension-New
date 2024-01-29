@@ -8,7 +8,10 @@ const Test = () => {
   const [darkPatterns, setDarkPatterns] = useState(null)
 
   useEffect(() => {
-    console.log('useeffect hello')
+    chrome.storage.local.get('darkPatterns', (data) => {
+      console.log('darkPatterns', data)
+      setDarkPatterns(data.darkPatterns)
+    })
     chrome.runtime.onMessage.addListener(function (
       request,
       sender,

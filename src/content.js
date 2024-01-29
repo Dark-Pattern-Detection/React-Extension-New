@@ -41,6 +41,11 @@ async function initPatternHighlighter() {
   if (response?.success === 'true') {
     const darkPatterns = response.data
 
+    // Store darkPatterns in local storage
+    chrome.storage.local.set({ darkPatterns }, function () {
+      console.log('darkPatterns stored in local storage')
+    })
+
     darkPatterns.map(async (data) => {
       const { class: className, darkPatterns } = data
       const regex = /dark_pattern_id_\d+/g
