@@ -5,13 +5,36 @@ import TempComponent from './components/TempComponent'
 import Dropdown from './components/dropdown'
 
 const Test = () => {
+  // const getCookieValue = (name) => {
+  //   const cookies = document.cookie.split(';')
+
+  //   for (let i = 0; i < cookies.length; i++) {
+  //     const cookie = cookies[i].trim()
+  //     if (cookie.startsWith(name + '=')) {
+  //       return cookie.substring(name.length + 1)
+  //     }
+  //   }
+  //   return null
+  // }
+
   const [darkPatterns, setDarkPatterns] = useState(null)
+  const [url, setUrl] = useState(null)
 
   useEffect(() => {
-    chrome.storage.local.get('darkPatterns', (data) => {
-      console.log('darkPatterns', data)
-      setDarkPatterns(data.darkPatterns)
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      setUrl(tabs[0].url)
     })
+  }, [chrome])
+
+  useEffect(() => {
+    console.log(window.location.href, url)
+    if (url) {
+      chrome.storage.local.get([url], (data) => {
+        console.log('darkPatterns', data[url])
+        setDarkPatterns(data[url])
+      })
+    }
+
     chrome.runtime.onMessage.addListener(function (
       request,
       sender,
@@ -19,13 +42,14 @@ const Test = () => {
     ) {
       if ((request.message = 'updateDarkPatterns')) {
         setDarkPatterns(request.darkPatterns)
+        setUrl(request.url)
         console.log('Dark patterns received in popup:', request.darkPatterns)
         sendResponse('popup received the data')
       }
 
       return true
     })
-  }, [])
+  }, [url])
   console.log('popup')
   return (
     <div style={{ width: '300px', borderRadius: '20px' }}>

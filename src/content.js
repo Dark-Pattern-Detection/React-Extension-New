@@ -1,8 +1,10 @@
 const brw = chrome
 
-initPatternHighlighter()
 let activateObserver = false
+let darkPatterns = []
+let tabUrl = null
 
+initPatternHighlighter()
 async function initPatternHighlighter() {
   // adding synthetic ids to all div tags
 
@@ -19,6 +21,14 @@ async function initPatternHighlighter() {
 
     divElm.setAttribute('class', newClass)
     idCounter++
+  })
+
+  brw.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if ((request.message = 'getDarkPatterns')) {
+      console.log('sending dark patterns')
+      sendResponse({ darkPatterns })
+    }
+    return true
   })
 
   const response = await fetch('http://localhost:3000', {
@@ -39,12 +49,18 @@ async function initPatternHighlighter() {
     })
 
   if (response?.success === 'true') {
-    const darkPatterns = response.data
+    darkPatterns = response.data
 
     // Store darkPatterns in local storage
-    chrome.storage.local.set({ darkPatterns }, function () {
-      console.log('darkPatterns stored in local storage')
-    })
+    chrome.storage.local.set(
+      { [window.location.href]: darkPatterns },
+      function () {
+        console.log(
+          'darkPatterns stored in local storage',
+          window.location.href
+        )
+      }
+    )
 
     darkPatterns.map(async (data) => {
       const { class: className, darkPatterns } = data
@@ -63,8 +79,12 @@ async function initPatternHighlighter() {
       divElm.style.position = 'relative'
       divElm.style.zIndex = '9999'
     })
+
     brw.runtime.sendMessage(
-      { message: 'darkPatternsFound', darkPatterns: darkPatterns },
+      {
+        message: 'darkPatternsFound',
+        darkPatterns: darkPatterns,
+      },
       function () {
         console.log('message send to background script')
       }

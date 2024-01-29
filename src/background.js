@@ -12,8 +12,6 @@ brw.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       }
     )
     sendResponse('Success')
-  } else if (request.message === 'getDarkPatternData') {
-    sendResponse({ darkPatterns: darkPatterns })
   }
 
   return true
