@@ -5,6 +5,7 @@ import TempComponent from './components/TempComponent'
 import Dropdown from './components/dropdown'
 
 const Test = () => {
+  const brw = chrome
   // const getCookieValue = (name) => {
   //   const cookies = document.cookie.split(';')
 
@@ -34,7 +35,42 @@ const Test = () => {
         setDarkPatterns(data[url])
       })
     }
+  }, [url])
 
+  // useEffect(() => {
+  //   if (darkPatterns) {
+  //     chrome.action.setBadgeText(
+  //       { text: `${darkPatterns?.length}` },
+  //       function () {
+  //         console.log('badge updated', darkPatterns?.length)
+  //       }
+  //     )
+  //   }
+  // }, [darkPatterns])
+
+  useEffect(() => {
+    brw.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      if (tabs.length > 0) {
+        console.log(tabs)
+        let tabId = tabs[0].id
+        if (darkPatterns) {
+          console.log('updating badge')
+          chrome.action.setBadgeText(
+            { text: `${darkPatterns?.length}`, tabId },
+            function () {
+              console.log('badge updated', darkPatterns?.length)
+            }
+          )
+        } else {
+          chrome.action.setBadgeText({ text: `...`, tabId }, function () {
+            console.log('badge updated', darkPatterns?.length)
+          })
+        }
+      }
+    })
+  }, [darkPatterns])
+
+  useEffect(() => {
     chrome.runtime.onMessage.addListener(function (
       request,
       sender,
@@ -49,8 +85,8 @@ const Test = () => {
 
       return true
     })
-  }, [url])
-  console.log('popup')
+  }, [])
+
   return (
     <div style={{ width: '300px', borderRadius: '20px' }}>
       <header id='heading'>
@@ -61,14 +97,14 @@ const Test = () => {
       {darkPatterns && darkPatterns.length > 0 ? (
         <Dropdown darkPatterns={darkPatterns} />
       ) : null}
-      {/* <button class='button' id='start'>
+      {/* <button className='button' id='start'>
         START
       </button> */}
       <footer>
-        <button class='button' id='report'>
+        <button className='button' id='report'>
           Report
         </button>
-        <button class='button' id='more'>
+        <button className='button' id='more'>
           More
         </button>
       </footer>

@@ -48,19 +48,11 @@ async function initPatternHighlighter() {
       return { success: 'false', message: error }
     })
 
-  if (response?.success === 'true') {
+  if (response?.success == true) {
+    // console.log('success')
     darkPatterns = response.data
 
     // Store darkPatterns in local storage
-    chrome.storage.local.set(
-      { [window.location.href]: darkPatterns },
-      function () {
-        console.log(
-          'darkPatterns stored in local storage',
-          window.location.href
-        )
-      }
-    )
 
     darkPatterns.map(async (data) => {
       const { class: className, darkPatterns } = data
@@ -68,6 +60,7 @@ async function initPatternHighlighter() {
       const matches = className.match(regex)
 
       const divElm = document.querySelector(`.${matches[0]}`)
+      // console.log(divElm, className)
 
       //TODO: change the style to highlight the dark patterns
 
@@ -79,7 +72,6 @@ async function initPatternHighlighter() {
       divElm.style.position = 'relative'
       divElm.style.zIndex = '9999'
     })
-
     brw.runtime.sendMessage(
       {
         message: 'darkPatternsFound',
@@ -89,35 +81,55 @@ async function initPatternHighlighter() {
         console.log('message send to background script')
       }
     )
-  }
-  // console.log(activateObserver)
-  if (!activateObserver) {
-    activateObserver = true
-    const observer = new MutationObserver((mutationsList) => {
-      for (const mutation of mutationsList) {
-        if (mutation.type === 'childList' || mutation.type === 'subtree') {
-          // Call your highlighting function whenever there is a change in the DOM
-          const addedDivs = Array.from(mutation.addedNodes).filter(
-            (node) => node.tagName && node.tagName.toLowerCase() === 'div'
-          )
-          const removedDivs = Array.from(mutation.removedNodes).filter(
-            (node) => node.tagName && node.tagName.toLowerCase() === 'div'
-          )
 
-          // console.log(addedDivs, removedDivs)
-          if (addedDivs.length > 0 || removedDivs.length > 0) {
-            initPatternHighlighter()
-            break
-          }
-
-          //  console.log('added', mutation.addedNodes)
-        }
+    brw.storage.local.set(
+      { [window.location.href]: darkPatterns },
+      function () {
+        console.log(
+          'darkPatterns stored in local storage',
+          window.location.href
+        )
       }
-    })
+    )
 
-    // observer.observe(document.body, {
-    //   childList: true,
-    //   subtree: true,
-    // })
+    brw.runtime.sendMessage(
+      {
+        message: 'updateBadge',
+        text: `${darkPatterns.length}`,
+      },
+      function () {
+        console.log('update badge messaged sent')
+      }
+    )
+
+    if (!activateObserver) {
+      activateObserver = true
+      const observer = new MutationObserver((mutationsList) => {
+        for (const mutation of mutationsList) {
+          if (mutation.type === 'childList' || mutation.type === 'subtree') {
+            // Call your highlighting function whenever there is a change in the DOM
+            const addedDivs = Array.from(mutation.addedNodes).filter(
+              (node) => node.tagName && node.tagName.toLowerCase() === 'div'
+            )
+            const removedDivs = Array.from(mutation.removedNodes).filter(
+              (node) => node.tagName && node.tagName.toLowerCase() === 'div'
+            )
+
+            // console.log(addedDivs, removedDivs)
+            if (addedDivs.length > 0 || removedDivs.length > 0) {
+              initPatternHighlighter()
+              break
+            }
+
+            //  console.log('added', mutation.addedNodes)
+          }
+        }
+      })
+
+      // observer.observe(document.body, {
+      //   childList: true,
+      //   subtree: true,
+      // })
+    }
   }
 }

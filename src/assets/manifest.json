@@ -8,7 +8,16 @@
     "48": "icon.png",
     "128": "icon.png"
   },
-  "permissions": ["scripting", "tabs", "storage"],
+  "permissions": [
+    "scripting",
+    "tabs",
+    "storage",
+    "activeTab",
+    "webRequest",
+    "http://localhost/*",
+    "chrome://favicon/",
+    "browserAction"
+  ],
   "background": {
     "service_worker": "background.js"
   },
