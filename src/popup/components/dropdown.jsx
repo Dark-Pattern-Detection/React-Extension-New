@@ -31,35 +31,38 @@ const AccordionComponent = (props) => {
       <div className='accordion-section'>
         <div className='accordion-title'>Highlight Patterns</div>
         <div className='accordion-content'>
-          <p>{darkPatterns[currIndex].label}</p>
-          <p>{darkPatterns[currIndex].text}</p>
+          
           <footer>
-            {currIndex === 0 ? null : (
-              <button
-                class='button'
+            {/* {currIndex === 0 ? null : ( */}
+              <button type="button"
+                class="button"
                 id='prev'
-                onClick={() =>
-                  setCurrIndex(currIndex === 0 ? currIndex : currIndex - 1)
-                }
+                // onClick={() =>
+                //   setCurrIndex(currIndex === 0 ? currIndex : currIndex - 1)
+                // }
               >
-                prev
+                <i id='lefticon' class="fa fa-angle-left" ></i>
               </button>
-            )}
-            {currIndex === darkPatterns.length - 1 ? null : (
-              <button
-                class='button'
+              <p>scarcity deception</p>
+            {/* <p>{darkPatterns[currIndex].label}</p> */}
+            {/* <p>{darkPatterns[currIndex].text}</p> */}
+            {/* )} */}
+            {/* {currIndex === darkPatterns.length - 1 ? null : ( */}
+              <button type="button"
+                class="button"
                 id='next'
-                onClick={() =>
-                  setCurrIndex(
-                    currIndex === darkPatterns.length - 1
-                      ? currIndex
-                      : currIndex + 1
-                  )
-                }
+                // onClick={() =>
+                //   setCurrIndex(
+                //     currIndex === darkPatterns.length - 1
+                //       ? currIndex
+                //       : currIndex + 1
+                //   )
+                // }
               >
-                next
+                <i id='righticon' class="fa fa-angle-right" ></i>
+
               </button>
-            )}
+            {/* )} */}
           </footer>
         </div>
       </div>

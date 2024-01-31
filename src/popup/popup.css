@@ -1,14 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 body {
-  color:rgb(248, 250, 229);
-  background-color: #112031;
-  
+  color:rgb(0, 0, 0);
+  background-color: #d0d2d3;
+  padding: 10px; /* Adjust the padding as needed */
+  margin: 0px;
+  margin-top: 0px;
 }
 #heading {
   text-align: center; /* Center the text horizontally */
+  margin: 0px;
   margin-top: 20px; /* Adjust the top margin as needed */
+  margin-bottom: 0px;
   font-size: 18px;
-  
-  color: rgb(226, 223, 243);
+  font-family: 'Mukta', sans-serif;
+  color: #1F2544;
 }
 
 footer {
@@ -25,19 +31,19 @@ footer {
 .button {
   width: 45%; /* Set the width to 45% to leave some space between buttons */
   padding: 8px; /* Adjust the padding as needed */
-  background-color: #526D82; /* Set your preferred background color */
-  color: #DDE6ED; /* Set the text color */
+  background-color: #1F2544; /* Set your preferred background color */
+  color: #d0d2d3; /* Set the text color */
   border: none;
   border-radius: 5px; /* Add rounded corners if desired */
   cursor: pointer;
 }
 
 #report {
-  background-color: #526D82; /* Customize the background color for the report button */
+  background-color: #214867; /* Customize the background color for the report button */
 }
 
 #more {
-  background-color: #526D82; /* Customize the background color for the more button */
+  background-color: #214867; /* Customize the background color for the more button */
 }
 
 #start {

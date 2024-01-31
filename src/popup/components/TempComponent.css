@@ -1,13 +1,15 @@
 .temp {
-  color: #ffffff;
+  color: #1F2544;
   font-size: 20px;
 }
 .temp {
   text-align: center; /* Center the text horizontally */
-  margin-top: 20px; /* Adjust the top margin as needed */
+  margin: 20px; /* Adjust the top margin as needed */
 }
 
 .temp h2,
 .temp h3 {
-  margin: 0; /* Remove default margins for h2 and h3 */
+  margin: 0px; /* Remove default margins for h2 and h3 */
+  color: #1F2544;
+
 }

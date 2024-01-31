@@ -1,14 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "React Extension",
-  "description": "React JS extension for chrome",
+  "name": "Pattern Alert",
+  "description": "For dark pattern awareness",
   "version": "1.0.0",
   "icons": {
     "16": "icon.png",
     "48": "icon.png",
     "128": "icon.png"
   },
-  "permissions": ["scripting", "tabs", "storage"],
+  "permissions": ["scripting", "tabs", "storage", "http://*/*",
+  "https://*/*"],
   "background": {
     "service_worker": "background.js"
   },

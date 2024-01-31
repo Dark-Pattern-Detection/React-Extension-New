@@ -27,22 +27,22 @@ const Test = () => {
   return (
     <div style={{ width: '300px', borderRadius: '20px' }}>
       <header id='heading'>
-        <h1>Pattern Alert</h1>
+        <h1>PATTERN ALERT</h1>
       </header>
 
       <TempComponent darkPatterns={darkPatterns} />
-      {darkPatterns && darkPatterns.length > 0 ? (
+      {/* {darkPatterns && darkPatterns.length > 0 ? ( */}
         <Dropdown darkPatterns={darkPatterns} />
-      ) : null}
+      {/* ) : null} */}
       {/* <button class='button' id='start'>
         START
       </button> */}
       <footer>
         <button class='button' id='report'>
-          Report
+        <i class="fa fa-flag"></i> Report
         </button>
-        <button class='button' id='more'>
-          More
+        <button class='button' id='more' type='submit' >
+        <i class="fa fa-bars"></i>  More
         </button>
       </footer>
     </div>
