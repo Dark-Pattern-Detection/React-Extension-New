@@ -1,22 +1,55 @@
 const brw = chrome
-
-let darkPatterns = []
+let darkPatterns = null
+let tabId
 
 brw.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if ((request.message = 'darkPatternsFound')) {
+  if (request.message == 'darkPatternsFound') {
     darkPatterns = request.darkPatterns
+    console.log('background', darkPatterns)
     brw.runtime.sendMessage(
       { message: 'updateDarkPatterns', darkPatterns: darkPatterns },
       function (response) {
-        console.log('Message send to popup')
+        console.log('Message send to popup', response)
       }
     )
     sendResponse('Success')
+  } else if (request.message == 'updateBadge') {
+    // console.log('badge update request received', tabId)
+    brw.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      if (tabs.length > 0) {
+        console.log(tabs)
+        let tabId = tabs[0].id
+        if (darkPatterns) {
+          chrome.action.setBadgeText(
+            { text: `${darkPatterns?.length}`, tabId },
+            function () {
+              console.log('badge updated', darkPatterns?.length)
+            }
+          )
+        } else {
+          chrome.action.setBadgeText({ text: `...`, tabId }, function () {
+            console.log('badge updated ...')
+          })
+        }
+      }
+    })
+    sendResponse('badge updated')
   }
 
   return true
 })
 
+// brw.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+//   console.log('background', request)
+//   if (request.message == 'updateBadge') {
+//     console.log('bade update request received')
+//     // chrome.browserAction.setBadgeText({ text: request.text })
+//     console.log('badge updated', request.text)
+//     sendResponse('badge updated')
+//   }
+
+//   return true
+// })
 // brw.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 //   if (request.message === 'tabUpdated') {
 //     const receiveText = (resultArray) => {
