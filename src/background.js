@@ -1,6 +1,5 @@
 const brw = chrome
-
-let darkPatterns = []
+let darkPatterns = null
 let tabId
 
 brw.runtime.onMessage.addListener(function (request, sender, sendResponse) {
@@ -21,7 +20,6 @@ brw.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         console.log(tabs)
         let tabId = tabs[0].id
         if (darkPatterns) {
-          console.log('updating badge')
           chrome.action.setBadgeText(
             { text: `${darkPatterns?.length}`, tabId },
             function () {
@@ -30,7 +28,7 @@ brw.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           )
         } else {
           chrome.action.setBadgeText({ text: `...`, tabId }, function () {
-            console.log('badge updated', darkPatterns?.length)
+            console.log('badge updated ...')
           })
         }
       }

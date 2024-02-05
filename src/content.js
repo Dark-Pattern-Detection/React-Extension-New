@@ -8,6 +8,10 @@ initPatternHighlighter()
 async function initPatternHighlighter() {
   // adding synthetic ids to all div tags
 
+  brw.runtime.sendMessage({ message: 'updateBadge' }, () => {
+    console.log('tab activated')
+  })
+
   let idCounter = 1
   document.querySelectorAll('div').forEach((divElm) => {
     const currentClass = divElm.getAttribute('class')
@@ -23,13 +27,13 @@ async function initPatternHighlighter() {
     idCounter++
   })
 
-  brw.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if ((request.message = 'getDarkPatterns')) {
-      console.log('sending dark patterns')
-      sendResponse({ darkPatterns })
-    }
-    return true
-  })
+  // brw.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  //   if ((request.message = 'getDarkPatterns')) {
+  //     console.log('sending dark patterns')
+  //     sendResponse({ darkPatterns })
+  //   }
+  //   return true
+  // })
 
   const response = await fetch('http://localhost:3000', {
     method: 'POST',
