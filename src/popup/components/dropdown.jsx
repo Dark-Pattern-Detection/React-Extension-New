@@ -31,38 +31,36 @@ const AccordionComponent = (props) => {
       <div className='accordion-section'>
         <div className='accordion-title'>Highlight Patterns</div>
         <div className='accordion-content'>
-          
           <footer>
-            {/* {currIndex === 0 ? null : ( */}
-              <button type="button"
-                class="button"
-                id='prev'
-                // onClick={() =>
-                //   setCurrIndex(currIndex === 0 ? currIndex : currIndex - 1)
-                // }
-              >
-                <i id='lefticon' class="fa fa-angle-left" ></i>
-              </button>
-              <p>scarcity deception</p>
-            {/* <p>{darkPatterns[currIndex].label}</p> */}
-            {/* <p>{darkPatterns[currIndex].text}</p> */}
-            {/* )} */}
-            {/* {currIndex === darkPatterns.length - 1 ? null : ( */}
-              <button type="button"
-                class="button"
-                id='next'
-                // onClick={() =>
-                //   setCurrIndex(
-                //     currIndex === darkPatterns.length - 1
-                //       ? currIndex
-                //       : currIndex + 1
-                //   )
-                // }
-              >
-                <i id='righticon' class="fa fa-angle-right" ></i>
-
-              </button>
-            {/* )} */}
+            <button
+              type='button'
+              class='button'
+              id='prev'
+              onClick={() =>
+                setCurrIndex(currIndex === 0 ? currIndex : currIndex - 1)
+              }
+            >
+              <i id='lefticon' class='fa fa-angle-left'></i>
+            </button>
+            {/* <p>scarcity deception</p> */}
+            <div className='pattern-details'>
+              <p>{darkPatterns[currIndex].label}</p>
+              <p>{darkPatterns[currIndex].text}</p>
+            </div>
+            <button
+              type='button'
+              class='button'
+              id='next'
+              onClick={() =>
+                setCurrIndex(
+                  currIndex === darkPatterns.length - 1
+                    ? currIndex
+                    : currIndex + 1
+                )
+              }
+            >
+              <i id='righticon' class='fa fa-angle-right'></i>
+            </button>
           </footer>
         </div>
       </div>

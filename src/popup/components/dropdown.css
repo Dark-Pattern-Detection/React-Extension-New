@@ -2,55 +2,56 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
 .accordion-section {
-    border: 2px solid #214867;
-    margin-bottom: 10px;
-    overflow: hidden;
-    border-radius: 5px;
-    background-color: #d0d2d3;
-  } 
-  
-  .accordion-title {
-    background-color: #214867;
-    color: #d0d2d3;
-    font-size: 14px;
-    padding: 10px;
-    cursor: pointer;
-  }
-  
-  .accordion-content {
-    display:none;
-    padding: 10px;
-    color: #1F2544;
-    font-size: 14px;
-    text-align: center;
-    /* position:absolute; */
-  }
-  
-  /* Toggle icon */
-  .accordion-title::before {
-    content: '\25B6'; /* Unicode character for right-pointing triangle */
-    font-size: 16px;
-    margin-right: 10px;
-    transition: transform 0.3s ease;
-    display: inline-block;
-  }
-  
-  .active .accordion-title::before {
-    transform: rotate(90deg);
-  }
-  
-  #prev {
-    size: 15px;
-    background-color: #d0d2d3;
-    color:  #1F2544;
-     /* Customize the background color for the report button */
-  }
-  
-  #next {
-    color:  #1F2544;
-    size: 5px;
-    background-color:#d0d2d3; /* Customize the background color for the more button */
-  }
+  border: 2px solid #214867;
+  margin-bottom: 10px;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: #d0d2d3;
+}
 
+.accordion-title {
+  background-color: #214867;
+  color: #d0d2d3;
+  font-size: 14px;
+  padding: 10px;
+  cursor: pointer;
+}
 
-  
+.accordion-content {
+  display: none;
+  padding: 10px;
+  color: #1f2544;
+  font-size: 14px;
+  text-align: center;
+  /* position:absolute; */
+}
+
+/* Toggle icon */
+.accordion-title::before {
+  content: '\25B6'; /* Unicode character for right-pointing triangle */
+  font-size: 16px;
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.active .accordion-title::before {
+  transform: rotate(90deg);
+}
+
+.pattern-details {
+  display: flex;
+  flex-direction: column;
+}
+#prev {
+  size: 15px;
+  background-color: #d0d2d3;
+  color: #1f2544;
+  /* Customize the background color for the report button */
+}
+
+#next {
+  color: #1f2544;
+  size: 5px;
+  background-color: #d0d2d3; /* Customize the background color for the more button */
+}
