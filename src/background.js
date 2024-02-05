@@ -3,6 +3,7 @@ let darkPatterns = null
 let tabId
 
 brw.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  console.log(request.message, 'background js')
   if (request.message == 'darkPatternsFound') {
     darkPatterns = request.darkPatterns
     console.log('background', darkPatterns)

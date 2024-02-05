@@ -35,6 +35,21 @@ async function initPatternHighlighter() {
   //   return true
   // })
 
+  const activatePicker = () => {
+    // document.body.style.cursor = 'pointer'
+    //TODO: implement the logic for mouse hover.
+  }
+
+  brw.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.message == 'activatePicker') {
+      console.log('activating picker')
+      activatePicker()
+      sendResponse('activating picker')
+    }
+
+    return true
+  })
+
   const response = await fetch('http://localhost:3000', {
     method: 'POST',
     headers: {

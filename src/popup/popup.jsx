@@ -87,6 +87,21 @@ const Test = () => {
     })
   }, [])
 
+  const startSelectionMode = () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      console.log('sending message', tabs[0].id)
+      chrome.tabs.sendMessage(
+        tabs[0].id,
+        { message: 'activatePicker' },
+        (res) => {
+          console.log('picker response', res)
+        }
+      )
+    })
+    // chrome.runtime.sendMessage({ message: 'activatePicker' }, (res) => {
+    //   console.log(res)
+    // })
+  }
   return (
     <div style={{ width: '300px', borderRadius: '20px' }}>
       <header id='heading'>
@@ -103,8 +118,8 @@ const Test = () => {
         <button class='button' id='report'>
           <i class='fa fa-flag'></i> Report
         </button>
-        <button class='button' id='more' type='submit'>
-          <i class='fa fa-bars'></i> More
+        <button class='button' id='more' onClick={startSelectionMode}>
+          <i class='fa fa-bars'></i> Selection Mode
         </button>
       </footer>
     </div>
