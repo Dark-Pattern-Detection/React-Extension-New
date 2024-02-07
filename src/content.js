@@ -36,8 +36,106 @@ async function initPatternHighlighter() {
   // })
 
   const activatePicker = () => {
-    // document.body.style.cursor = 'pointer'
-    //TODO: implement the logic for mouse hover.
+    const disableClicks = () => {
+      document
+        .querySelectorAll('a, button, input, select, textarea')
+        .forEach((element) => {
+          element.style.pointerEvents = 'none'
+        })
+      // document.body.style.pointerEvents = 'none'
+    }
+
+    document.body.style.cursor = 'crosshair'
+    const enableClicks = () => {
+      document
+        .querySelectorAll('a, button, input, select, textarea')
+        .forEach((element) => {
+          element.style.pointerEvents = 'auto'
+        })
+      document.body.style.pointerEvents = 'auto'
+    }
+
+    let currentCursor = null
+
+    const mouseMoveListener = (event) => {
+      const target = event.target
+      if (currentCursor && currentCursor == target) {
+        console.log('return')
+        return
+      }
+      if (target) {
+        currentCursor = target
+        const parentDiv = target?.closest('div')
+        target.style.pointerEvents = 'none'
+        target.style.border = '1px solid red'
+        target.style.zIndex = 10000
+        // target.style.backgroundColor = '#ff74748f'
+      }
+    }
+
+    const mouseOutListener = (event) => {
+      const target = event.target
+      if (target) {
+        // const parentDiv = target?.closest('div')
+        // console.log('parent', parentDiv?.getAttribute('class'))
+        target.style.pointerEvents = 'auto'
+        target.style.border = 'none'
+        // target.style.backgroundColor = ''
+      }
+    }
+
+    document.addEventListener('mousemove', mouseMoveListener)
+    document.addEventListener('mouseout', mouseOutListener)
+
+    document.addEventListener('click', (event) => {
+      event.preventDefault()
+      const target = event.target
+      if (target) {
+        target.style.pointerEvents = 'auto'
+        target.style.border = 'none'
+        // const randomNumber = Math.floor(Math.random() * 1000000) + 1
+        // target.classList.add(`dark-select-${randomNumber}`)
+
+        const parentDiv = target?.closest('div')
+        const parentClass = parentDiv?.getAttribute('class')
+
+        console.log(target.innerText)
+        console.log('parent', parentClass)
+        //TODO: send this to the node server
+        console.log(target.outerHTML)
+        const data = {
+          targetElm: target.outerHTML,
+          text: target.innerText,
+          parentDivClass: parentDiv?.getAttribute('class'),
+          tabUrl: window.location.href,
+        }
+
+        fetch('http://localhost:5000/feedback', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('Response from server:', data)
+          })
+          .catch((error) => {
+            console.error('Error:', error)
+          })
+
+        // const elementClass = target.getAttribute('class')
+
+        // console.log(elementClass)
+      }
+      // enableClicks()
+      document.body.style.cursor = 'auto'
+      document.removeEventListener('mousemove', mouseMoveListener)
+      document.removeEventListener('mouseout', mouseOutListener)
+    })
+
+    // disableClicks()
   }
 
   brw.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -134,9 +232,9 @@ async function initPatternHighlighter() {
               (node) => node.tagName && node.tagName.toLowerCase() === 'div'
             )
 
-            // console.log(addedDivs, removedDivs)
+            console.log(mutation.addedNodes)
             if (addedDivs.length > 0 || removedDivs.length > 0) {
-              initPatternHighlighter()
+              // initPatternHighlighter()
               break
             }
 
@@ -145,10 +243,10 @@ async function initPatternHighlighter() {
         }
       })
 
-      // observer.observe(document.body, {
-      //   childList: true,
-      //   subtree: true,
-      // })
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+      })
     }
   }
 }
