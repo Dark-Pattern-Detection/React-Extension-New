@@ -57,29 +57,43 @@ async function initPatternHighlighter() {
 
     let currentCursor = null
 
+    let timeout
     const mouseMoveListener = (event) => {
+      event.stopPropagation()
       const target = event.target
       if (currentCursor && currentCursor == target) {
         console.log('return')
         return
       }
-      if (target) {
-        currentCursor = target
-        const parentDiv = target?.closest('div')
-        target.style.pointerEvents = 'none'
-        target.style.border = '1px solid red'
-        target.style.zIndex = 10000
-        // target.style.backgroundColor = '#ff74748f'
-      }
+      clearTimeout(timeout)
+      timeout = setTimeout(() => {
+        if (target) {
+          currentCursor = target
+          // const parentDiv = target?.closest('div')
+          target.style.pointerEvents = 'none'
+          // disableClicks()
+
+          target.style.outline = '1px solid red'
+          // target.style.boxShadow = '0 0 1000px 1000px rgba(128, 128, 128, 0.5)'
+          // target.style.boxShadow = '1000px 1000px 1000px 1000px #7e7e7eff'
+
+          // target.style.zIndex = 10000
+          // target.style.backgroundColor = '#ff74748f'
+        }
+      }, 50)
     }
 
     const mouseOutListener = (event) => {
       const target = event.target
+      clearTimeout(timeout)
       if (target) {
         // const parentDiv = target?.closest('div')
         // console.log('parent', parentDiv?.getAttribute('class'))
+        // enableClicks()
         target.style.pointerEvents = 'auto'
-        target.style.border = 'none'
+        target.style.outline = 'none'
+        target.style.boxShadow = 'none'
+
         // target.style.backgroundColor = ''
       }
     }
@@ -89,10 +103,13 @@ async function initPatternHighlighter() {
 
     document.addEventListener('click', (event) => {
       event.preventDefault()
+      clearTimeout(timeout)
       const target = event.target
       if (target) {
         target.style.pointerEvents = 'auto'
-        target.style.border = 'none'
+        target.style.outline = 'none'
+        target.style.boxShadow = 'none'
+
         // const randomNumber = Math.floor(Math.random() * 1000000) + 1
         // target.classList.add(`dark-select-${randomNumber}`)
 
@@ -138,10 +155,39 @@ async function initPatternHighlighter() {
     // disableClicks()
   }
 
+  const newActivatePicker = () => {
+    console.log('new picker')
+
+    const onCursorPositionChange = (e) => {
+      console.log('cursor position change')
+      const boundingBox = e.target.getBoundingClientRect()
+      const topLeft = {
+        x: boundingBox.left,
+        y: boundingBox.top,
+      }
+      const existingBox = document.getElementById('activation-box')
+      existingBox?.remove()
+      const box = document.createElement('div')
+      box.id = 'activation-box'
+      box.style.top = topLeft.y + 'px'
+      box.style.left = topLeft.x + 'px'
+      box.style.width = boundingBox.width + 'px'
+      box.style.height = boundingBox.height + 'px'
+      document.body.appendChild(box)
+    }
+
+    document.addEventListener('mousemove', onCursorPositionChange)
+    document.addEventListener('click', () => {
+      const box = document.getElementById('activation-box')
+      box.remove()
+      document.removeEventListener('mousemove', onCursorPositionChange)
+    })
+  }
+
   brw.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.message == 'activatePicker') {
       console.log('activating picker')
-      activatePicker()
+      activatePicker() //
       sendResponse('activating picker')
     }
 
