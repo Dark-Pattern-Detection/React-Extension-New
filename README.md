@@ -13,10 +13,10 @@ Extension setup:
 
 
 
-`Optional: to start the server you will need to setup temp-node-server and python-server. But without starting server also you can run the extension and change the frontend of the popup.`
+`Optional: to start the server you will need to setup node-server and python-server. But without starting server also you can run the extension and change the frontend of the popup.`
 
-   Node Server Link: (Read readme of temp-node-server to setup node server)
-   `http://localhost:3000`
+   Node Server Link: (Read readme of node-server to setup node server)
+   `http://localhost:5000`
 
    Python Server Link: (Read readme of python-server to setup node server)
-   `http:/localhost:8000`
+   `http:/localhost:3000`
